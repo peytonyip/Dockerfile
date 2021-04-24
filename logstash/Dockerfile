@@ -1,5 +1,8 @@
 FROM docker.elastic.co/logstash/logstash:7.12.0
 #COPY ./logstash/logstash-filter-ip2region-1.0.2.zip /tmp/
+
+USER root
+
 RUN \
     buildDeps='wget' && \
     rm -rf /var/cache/yum/* &&\
@@ -11,3 +14,5 @@ RUN cd /tmp && \
     /usr/share/logstash/bin/logstash-plugin install file:///tmp/logstash-filter-ip2region-1.0.2.zip && \
     rm -rf /tmp/logstash-filter-ip2region-1.0.2.zip && \
     yum remove -y $buildDeps && yum clean all
+
+USER logstash
