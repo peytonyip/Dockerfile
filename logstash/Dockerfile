@@ -12,7 +12,9 @@ RUN \
 RUN cd /tmp && \
     wget -O logstash-filter-ip2region-1.0.2.zip "https://github.com/liangwenrong/ip2region-my/releases/latest/download/logstash-filter-ip2region-1.0.2.zip" && \
     /usr/share/logstash/bin/logstash-plugin install file:///tmp/logstash-filter-ip2region-1.0.2.zip && \
-    rm -rf /tmp/logstash-filter-ip2region-1.0.2.zip && \
-    rpm -e --nodeps $buildDeps && yum clean all
+    rm -rf /tmp/logstash-filter-ip2region-1.0.2.zip
+
+RUN rpm -e --nodeps $buildDeps && \
+    yum clean all
 
 USER logstash
