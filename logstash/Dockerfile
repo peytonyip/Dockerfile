@@ -4,10 +4,10 @@ RUN \
     buildDeps='wget' && \
     rm -rf /var/cache/yum/* &&\
     yum makecache && \
-    yum update && yum install -y $buildDeps && \
+    yum update && yum install -y $buildDeps
     
 RUN cd /tmp && \
-    wget -O logstash-filter-ip2region-1.0.2.zip https://github.com/liangwenrong/ip2region-my/releases/latest/download/logstash-filter-ip2region-1.0.2.zip && \
+    wget -O logstash-filter-ip2region-1.0.2.zip "https://github.com/liangwenrong/ip2region-my/releases/latest/download/logstash-filter-ip2region-1.0.2.zip" && \
     /usr/share/logstash/bin/logstash-plugin install file:///tmp/logstash-filter-ip2region-1.0.2.zip && \
     rm -rf /tmp/logstash-filter-ip2region-1.0.2.zip && \
     yum remove -y $buildDeps && yum clean all
