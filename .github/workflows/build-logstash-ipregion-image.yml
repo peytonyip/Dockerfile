@@ -2,7 +2,7 @@ name: Build logstash ip2region Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ test ]
     paths:
     - './logstash/Dockerfile'
   workflow_dispatch:
@@ -26,5 +26,5 @@ jobs:
           file: ./logstash/Dockerfile
           context: .
           push: true
-          tags: peytonyip/logstash:ip2region
+          tags: peytonyip/logstash:test
       

@@ -1,7 +1,21 @@
 ARG logstash_version=7.12.0
 FROM docker.elastic.co/logstash/logstash:$logstash_version
-#USER logstash
-COPY --chown=logstash:logstash ./logstash/logstash-filter-ip2region-1.0.2.zip /tmp/logstash-filter-ip2region-1.0.2.zip
+
+
+ENV buildDeps="wget"
+ENV filterVersion="1.0.2"
+
+USER root
+
 RUN \
-    /usr/share/logstash/bin/logstash-plugin install file:///tmp/logstash-filter-ip2region-1.0.2.zip && \
-    rm -rf /tmp/logstash-filter-ip2region-1.0.2.zip
+    rm -rf /var/cache/yum/* &&\
+    yum makecache && \
+    yum update -y && yum install -y $buildDeps && \
+    cd /tmp && \
+    wget -O logstash-filter-ip2region-"$filterVersion".zip "https://github.com/liangwenrong/ip2region-my/releases/latest/download/logstash-filter-ip2region-${filterVersion}.zip" && \
+    /usr/share/logstash/bin/logstash-plugin install file:///tmp/logstash-filter-ip2region-"$filterVersion.zip" && \
+    rm -rf /tmp/logstash-filter-ip2region-"$filterVersion.zip" && \
+    rpm -e --nodeps $buildDeps && \
+    yum clean all
+
+USER logstash
