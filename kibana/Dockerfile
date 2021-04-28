@@ -1,4 +1,4 @@
-ENV kibana_version=7.12.1
+ARG kibana_version=7.12.1
 
 FROM docker.elastic.co/kibana/kibana:$kibana_version
 
