@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push ip2region
+      - name: Build and push Kibana
         uses: docker/build-push-action@v2
         with:
           file: ./kibana/Dockerfile
