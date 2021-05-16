@@ -1,4 +1,4 @@
-name: Build Jenkins Docker Image CI
+name: Build Grafana Docker Image CI
 
 on:
   push:
