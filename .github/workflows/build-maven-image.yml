@@ -26,5 +26,5 @@ jobs:
           file: ./maven/Dockerfile
           context: .
           push: true
-          tags: peytonyip/maven
+          tags: peytonyip/maven:3-openjdk-8-slim
       
