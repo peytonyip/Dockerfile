@@ -61,6 +61,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
 	#git clone https://github.com/swoole/swoole-src.git && \
     curl -fsSL https://github.com/swoole/swoole-src/archive/refs/tags/v${SWOOLE_VERSION}.tar.gz -o swoole-src.tar.gz && \
     tar zxf swoole-src.tar.gz && \
+    rm -rf swoole-src.tar.gz && \
     cd swoole-src-${SWOOLE_VERSION} && \
     phpize && \
     ./configure && \
