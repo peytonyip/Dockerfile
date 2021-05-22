@@ -99,7 +99,7 @@ RUN apk add --no-cache --virtual .runtime-deps \
     libxml2 \
     libintl \
     libstdc++ \
-    tidyhtml-libs && \
+    tidyhtml-libs \
     #tidyhtml \
     libxslt \
     #zip
