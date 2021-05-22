@@ -103,7 +103,7 @@ RUN apk add --no-cache --virtual .runtime-deps \
     #tidyhtml \
     libxslt \
     #zip
-    zip \
+    #zip \
     #ssh2
     libssh2 \
     #mcrypt
