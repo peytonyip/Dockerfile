@@ -117,8 +117,3 @@ RUN apk add --no-cache --virtual .runtime-deps \
 #RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"  && \
 #    rm -rf /var/cache/apk/*
 
-
-
-
-
-
