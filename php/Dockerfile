@@ -1,21 +1,5 @@
 FROM php:7.3-fpm-alpine
 
-RUN apk add --no-cache --virtual .runtime-deps \
-    #for 
-    gettext \
-    icu \
-    # for GD
-    freetype \
-    libpng \
-    libjpeg-turbo \
-    libwebp \
-    libxpm \
-    libzip \
-    libxml2 \
-    tidyhtml \
-    libxslt 
-
-
 RUN \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     gettext-dev \
@@ -70,10 +54,14 @@ RUN \
 
 
 #install swoole
-RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS git  && \
+ARG SWOOLE_VERSION=4.6.7
+
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
     cd /tmp && \
-	git clone https://github.com/swoole/swoole-src.git && \
-    cd swoole-src && \
+	#git clone https://github.com/swoole/swoole-src.git && \
+    curl -fsSL https://github.com/swoole/swoole-src/archive/refs/tags/v${SWOOLE_VERSION}.tar.gz -o swoole-src.tar.gz && \
+    tar zxf swoole-src.tar.gz && \
+    cd swoole-src-${SWOOLE_VERSION} && \
     phpize && \
     ./configure && \
     make && \
@@ -84,14 +72,44 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS git  && \
 
 
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS libssh2-dev && \
-    apk add --no-cache --virtual .runtime-deps libssh2 && \
+    #apk add --no-cache --virtual .runtime-deps libssh2 && \
     pecl install ssh2-1.2 && \
+    docker-php-ext-enable ssh && \
     apk del .build-deps
 
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS  libmcrypt-dev && \
-    apk add --no-cache --virtual .runtime-deps libmcrypt && \
+    #apk add --no-cache --virtual .runtime-deps libmcrypt && \
     pecl install mcrypt && \
+    docker-php-ext-enable mcrypt && \
     apk del .build-deps
+
+#install runtime deps
+RUN apk add --no-cache --virtual .runtime-deps \
+    #for 
+    gettext \
+    #icu \
+    icu-libs \
+    # for GD
+    freetype \
+    libpng \
+    libjpeg-turbo \
+    libwebp \
+    libxpm \
+    libzip \
+    libxml2 \
+    libintl \
+    libstdc++ \
+    tidyhtml-libs && \
+    #tidyhtml \
+    libxslt \
+    #zip
+    zip \
+    #ssh2
+    libssh2 \
+    #mcrypt
+    libmcrypt \
+
+
 
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"  && \
