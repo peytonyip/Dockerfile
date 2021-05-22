@@ -67,7 +67,7 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
     ./configure && \
     make && \
     make install && \
-    rm -rf /tmp/swoole-src && \
+    rm -rf /tmp/swoole-src-${SWOOLE_VERSION} && \
     docker-php-ext-enable swoole && \
     apk del .build-deps
 
