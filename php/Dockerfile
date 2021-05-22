@@ -20,13 +20,6 @@ RUN \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     gettext-dev \
     icu-dev \
-    # for GD
-    freetype-dev \
-    libjpeg-turbo-dev \
-    libpng-dev \
-    libwebp-dev \
-    libxpm-dev  \
-    libzip-dev \
     libxml2-dev \
     tidyhtml-dev \
     libxslt-dev && \
@@ -47,6 +40,23 @@ RUN \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     php -r "unlink('composer-setup.php');" && \
+    # install redis,yaconf
+    pecl install redis yaconf && \
+    docker-php-ext-enable redis yaconf && \
+    # install sozp
+    docker-php-ext-install -j$(nproc) soap  xmlrpc tidy xsl && \
+    apk del .build-deps
+
+#install gd,zip
+RUN \
+    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
+    # for GD
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    libxpm-dev  \
+    libzip-dev && \
     #install gd
     docker-php-ext-configure gd --with-gd --with-webp-dir --with-jpeg-dir --with-png-dir --with-zlib-dir \
     --with-xpm-dir --with-freetype-dir && \
@@ -55,11 +65,6 @@ RUN \
     docker-php-ext-configure zip --with-libzip && \
 	docker-php-ext-install zip && \
     docker-php-ext-enable zip && \
-    # install redis,yaconf
-    pecl install redis yaconf && \
-    docker-php-ext-enable redis yaconf && \
-    # install sozp
-    docker-php-ext-install -j$(nproc) soap  xmlrpc tidy xsl && \
     apk del .build-deps
 
 
