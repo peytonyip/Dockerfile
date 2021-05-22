@@ -60,7 +60,7 @@ RUN \
     docker-php-ext-enable redis yaconf && \
     # install sozp
     docker-php-ext-install -j$(nproc) soap  xmlrpc tidy xsl && \
-    apk del .build-deps 
+    apk del .build-deps
 
 
 
@@ -75,22 +75,22 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS git  && \
     make install && \
     rm -rf /tmp/swoole-src && \
     docker-php-ext-enable swoole && \
-    apk del .build-deps && \
-    rm -rf /var/cache/apk/*
+    apk del .build-deps
 
 
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS libssh2-dev && \
     apk add --no-cache --virtual .runtime-deps libssh2 && \
     pecl install ssh2-1.2 && \
-    apk del .build-deps 
+    apk del .build-deps
 
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS  libmcrypt-dev && \
     apk add --no-cache --virtual .runtime-deps libmcrypt && \
     pecl install mcrypt && \
-    apk del .build-deps 
+    apk del .build-deps
 
 # Use the default production configuration
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"  && \
+    rm -rf /var/cache/apk/*
 
 
 
