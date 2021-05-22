@@ -107,13 +107,17 @@ RUN apk add --no-cache --virtual .runtime-deps \
     #ssh2
     libssh2 \
     #mcrypt
-    libmcrypt 
+    libmcrypt && \
+    #copy ini
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"  && \
+    rm -rf /var/cache/apk/*
+
 
 
 
 # Use the default production configuration
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"  && \
-    rm -rf /var/cache/apk/*
+#RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"  && \
+#    rm -rf /var/cache/apk/*
 
 
 
