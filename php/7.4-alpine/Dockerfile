@@ -54,10 +54,14 @@ RUN \
 
 
 #install swoole
-RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS git  && \
+ARG SWOOLE_VERSION=4.6.7
+
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
     cd /tmp && \
-	git clone https://github.com/swoole/swoole-src.git && \
-    cd swoole-src && \
+	#git clone https://github.com/swoole/swoole-src.git && \
+    curl -fsSL https://github.com/swoole/swoole-src/archive/refs/tags/v${SWOOLE_VERSION}.tar.gz -o swoole-src.tar.gz && \
+    tar zxf swoole-src.tar.gz && \
+    cd swoole-src-${SWOOLE_VERSION} && \
     phpize && \
     ./configure && \
     make && \
@@ -83,29 +87,31 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS  libmcrypt-dev && \
 RUN apk add --no-cache --virtual .runtime-deps \
     #for 
     gettext \
-    #icu \
+    icu-libs \
     # for GD
     freetype \
     libpng \
     libjpeg-turbo \
     libwebp \
     libxpm \
-    libzip \
-    libxml2 \
-    #tidyhtml \
-    libxslt \
-    zip \
-    libssh2 \
-    libmcrypt \
-    #new
     libintl \
-    icu-libs \
     libstdc++ \
-    tidyhtml-libs && \
+    libzip \
+    #tidy etc..
+    libxml2 \
+    tidyhtml-libs \
+    libxslt \
+    #zip
+    #zip \
+    #for ssh2
+    libssh2 \
+    libmcrypt && \
+    #new
+    #
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"  && \
     rm -rf /var/cache/apk/*
 
-
+#COPY www.conf /usr/local/etc/php/conf.d/
 
 # Use the default production configuration
 #RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"  && \
