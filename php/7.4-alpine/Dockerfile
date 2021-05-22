@@ -74,7 +74,8 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
 
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS libssh2-dev && \
     #apk add --no-cache --virtual .runtime-deps libssh2 && \
-    pecl install ssh2 && \
+    #need version
+    pecl install ssh2-1.3.1 && \
     docker-php-ext-enable ssh2 && \
     apk del .build-deps
 
