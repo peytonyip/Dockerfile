@@ -4,7 +4,7 @@ RUN \
     apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     gettext-dev \
     icu-dev \
-    libxml2-dev \
+    #libxml2-dev \
     tidyhtml-dev \
     libxslt-dev && \
     #install core ext
@@ -28,7 +28,7 @@ RUN \
     pecl install redis yaconf && \
     docker-php-ext-enable redis yaconf && \
     # install sozp
-    docker-php-ext-install -j$(nproc) soap  xmlrpc tidy xsl && \
+    docker-php-ext-install -j$(nproc) soap tidy xsl && \
     apk del .build-deps
 
 #install gd,zip
@@ -85,6 +85,10 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS  libmcrypt-dev && \
     docker-php-ext-enable mcrypt && \
     apk del .build-deps
 
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS  libxml2-dev && \
+    pecl install xmlrpc-1.0.0RC2 && \
+    docker-php-ext-enable xmlrpc && \
+    apk del .build-deps
 
 RUN apk add --no-cache --virtual .runtime-deps \
     #for 
