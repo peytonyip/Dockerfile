@@ -1,8 +1,8 @@
-ARG kibana_version=7.12.1
+ARG KIBANA_VERSION=7.12.1
 
-FROM docker.elastic.co/kibana/kibana:$kibana_version
+FROM docker.elastic.co/kibana/kibana:${KIBANA_VERSION}
 
-ARG kibana_version=7.12.1
+ARG KIBANA_VERSION
 
 RUN \
-  /usr/share/kibana/bin/kibana-plugin install https://github.com/pjhampton/kibana-prometheus-exporter/releases/download/$kibana_version/kibanaPrometheusExporter-$kibana_version.zip
+  /usr/share/kibana/bin/kibana-plugin install https://github.com/pjhampton/kibana-prometheus-exporter/releases/download/${KIBANA_VERSION}/kibanaPrometheusExporter-${KIBANA_VERSION}.zip
