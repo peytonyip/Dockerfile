@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: ./nginx/Dockerfile
-          context: .
+          context: ./nginx
           push: true
           tags: |
             peytonyip/nginx-brotli:stable
