@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-    - './logstash/Dockerfile'
+      - './logstash/Dockerfile'
   workflow_dispatch:
 
 jobs:

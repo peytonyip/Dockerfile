@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-    - './grafana/Dockerfile'
+      - './grafana/Dockerfile'
   workflow_dispatch:
 
 jobs:

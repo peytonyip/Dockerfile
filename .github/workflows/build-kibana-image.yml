@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-    - './kibana/Dockerfile'
+      - './kibana/Dockerfile'
   workflow_dispatch:
 
 jobs:
