@@ -26,5 +26,7 @@ jobs:
           file: ./logstash/Dockerfile
           context: .
           push: true
-          tags: peytonyip/logstash
-      
+          tags: |
+            peytonyip/logstash
+            peytonyip/logstash:ip2region
+    
