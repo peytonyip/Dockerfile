@@ -11,4 +11,6 @@ RUN add-apt-repository \
        $(lsb_release -cs) stable"
 RUN apt-get update && apt-get install -y docker-ce-cli && \
     rm -rf /var/lib/apt/lists/*
+
+COPY ./
 USER jenkins
