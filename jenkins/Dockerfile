@@ -12,5 +12,5 @@ RUN add-apt-repository \
 RUN apt-get update && apt-get install -y docker-ce-cli && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./
+COPY ./java.security /opt/java/openjdk/conf/security/java.security
 USER jenkins
