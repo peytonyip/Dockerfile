@@ -1,4 +1,4 @@
-name: Build Elasticsearch Docker Image CI
+name: Build Elasticsearch Prometheus-exporter Image CI
 
 on:
   push:
