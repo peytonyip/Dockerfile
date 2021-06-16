@@ -1,10 +1,10 @@
-name: Build logstash Docker Image CI
+name: Build Elasticsearch Prometheus-exporter Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - './logstash/Dockerfile'
+      - './elasticsearch/Dockerfile-prometheus-exporter'
   workflow_dispatch:
 
 jobs:
@@ -20,13 +20,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push logstash
+      - name: Build and push Elasticsearch
         uses: docker/build-push-action@v2
         with:
-          file: ./logstash/Dockerfile
-          context: .
+          file: ./elasticsearch/Dockerfile-prometheus-exporter
+          context: ./elasticsearch
           push: true
-          tags: |
-            peytonyip/logstash
-            peytonyip/logstash:ip2region
-    
+          tags: peytonyip/elasticsearch:prometheus-exporter
+      
