@@ -1,3 +1,5 @@
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/peytonyip/Dockerfile)
+
 # Dockerfile
 存放 dockerfile
 
