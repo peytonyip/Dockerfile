@@ -1,5 +1,6 @@
-ARG FLUENTD_VERSION=v1.9-1
-FROM fluentd:${FLUENTD_VERSION}
+#ARG FLUENTD_VERSION=v1.9-1
+#FROM fluentd:${FLUENTD_VERSION}
+FROM fluentd
 
 # install plugin
 USER root
