@@ -1,5 +1,5 @@
-FROM jenkins/jenkins:jdk11
-#FROM jenkins/jenkins:slim
+#FROM jenkins/jenkins:jdk11
+FROM jenkins/jenkins:slim
 USER root
 RUN apt-get update && apt-get install -y apt-transport-https \
        ca-certificates curl gnupg2 \
