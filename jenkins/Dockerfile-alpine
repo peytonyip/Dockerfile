@@ -1,0 +1,9 @@
+FROM jenkins/jenkins:alpine
+
+USER root
+
+RUN apk add --no-cache docker-cli
+
+COPY ./java.security /opt/java/openjdk/conf/security/java.security
+
+USER jenkins
