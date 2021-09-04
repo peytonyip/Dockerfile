@@ -14,3 +14,4 @@ RUN apt-get update && apt-get install -y docker-ce-cli && \
 
 COPY ./java.security /opt/java/openjdk/conf/security/java.security
 USER jenkins
+RUN jenkins-plugin-cli --plugins "docker-workflow"
