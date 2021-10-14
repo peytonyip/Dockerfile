@@ -4,6 +4,10 @@ FROM docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}
 
 ARG ES_VERSION
 
+USER root
+
+RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install repository-s3
+
 USER elasticsearch
 
 RUN \
@@ -14,7 +18,7 @@ RUN \
   rm -rf elasticsearch-analysis-ik.zip && \
   cd /tmp && \
   mv ./ik /usr/share/elasticsearch/plugins/. && \
-  /usr/share/elasticsearch/bin/elasticsearch-plugin install repository-s3
+
 
 
 #USER elasticsearch
