@@ -15,7 +15,7 @@ ENV LANG en_US.utf8
 
 RUN \
     sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories; \
-    apk add --no-cache postgresql-client tini
+    apk add --no-cache postgresql-client tini bash
 
 
 USER ${USER}

@@ -1,12 +1,13 @@
 FROM alpine:latest
 RUN \
-    apk add --no-cache mysql-client tini
+    apk add --no-cache mysql-client tini bash
 
 ARG user=mysql
 ARG group=mysql
 ARG uid=1000
 ARG gid=1000
 
+ENV LANG en_US.utf8
 
 RUN \
     addgroup -g ${gid} ${group} && \
