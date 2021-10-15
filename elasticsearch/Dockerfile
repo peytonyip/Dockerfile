@@ -1,12 +1,9 @@
-ARG ES_VERSION=7.15.0
+ARG ES_VERSION=7.15.1
 
 FROM docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}
 
 ARG ES_VERSION
 
-#USER root
-
-#RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install --batch repository-s3
 
 USER elasticsearch
 
