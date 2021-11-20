@@ -1,4 +1,4 @@
-name: Build Jenkins Docker Image CI
+name: Build Netclient Docker Image CI
 
 on:
   push:
