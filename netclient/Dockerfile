@@ -7,6 +7,7 @@ ENV GO111MODULE=auto
 RUN apk add --no-cache git; \
     git clone https://github.com/gravitl/netmaker.git; \
     mv netmaker/* .; \
+    echo "start build"; \
     GOOS=linux GOARCH=amd64 CGO_ENABLED=0 /usr/local/go/bin/go build -ldflags="-w -s" -o netclient-app netclient/main.go
 
 
