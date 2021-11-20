@@ -17,9 +17,11 @@ RUN apk add gcompat iptables && mkdir -p /etc/netclient
 # set the working directory
 WORKDIR /root/
 
-COPY --from=builder /app/netclient-app /etc/netclient/netclient
+#COPY --from=builder /app/netclient-app /etc/netclient/netclient
+COPY --from=builder /app/netclient-app /root/netclient
 COPY --from=builder /app/scripts/netclient.sh .
 
-RUN chmod 0755 /etc/netclient/netclient && chmod 0755 netclient.sh
+#RUN chmod 0755 /etc/netclient/netclient && chmod 0755 netclient.sh
+RUN chmod 0755 /root/netclient && chmod 0755 netclient.sh
 
 ENTRYPOINT ["./netclient.sh"]
