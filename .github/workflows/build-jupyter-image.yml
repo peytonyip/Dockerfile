@@ -1,0 +1,32 @@
+name: Build Jupyter Docker Image CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - './jupyter/Dockerfile'
+#  schedule:
+#    - cron: '0 21 * * 4'
+  
+  workflow_dispatch:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Jupyter
+        uses: docker/build-push-action@v2
+        with:
+          file: ./jupyter/Dockerfile
+          context: ./jupyter
+          push: true
+          tags: peytonyip/jupyter:base-notebook
