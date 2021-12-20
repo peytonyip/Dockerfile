@@ -1,4 +1,4 @@
-ARG KIBANA_VERSION=7.16.1
+ARG KIBANA_VERSION=7.16.2
 
 FROM docker.elastic.co/kibana/kibana:${KIBANA_VERSION}
 
