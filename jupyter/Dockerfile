@@ -4,6 +4,7 @@ ARG custom_packages="black \
               dbutils \
               diagrams \
               elasticsearch \
+              Faker \
               flake8 \
               minio \
               openpyxl \
@@ -13,6 +14,8 @@ ARG custom_packages="black \
               pandas \
               pyecharts \
               redis \
+              requests \
+              XlsxWriter \
               yapf"
 
 #COPY --chown=${NB_UID}:${NB_GID} requirements.txt /tmp/
