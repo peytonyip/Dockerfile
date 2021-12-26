@@ -13,7 +13,7 @@ RUN \
     calendar \
     pcntl \
     pdo_mysql \
-    gettext \  
+    gettext \
     sockets \
     intl \
     mysqli  \
@@ -54,7 +54,7 @@ RUN \
 
 
 #install swoole
-ARG SWOOLE_VERSION=4.8.0
+ARG SWOOLE_VERSION=4.8.5
 
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
     cd /tmp && \
