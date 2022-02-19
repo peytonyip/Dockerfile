@@ -14,8 +14,7 @@ RUN \
   unzip ./elasticsearch-analysis-ik.zip; \
   rm -rf elasticsearch-analysis-ik.zip; \
   cd /tmp; \
-  mv ./ik /usr/share/elasticsearch/plugins/.; \
-  /usr/share/elasticsearch/bin/elasticsearch-plugin install --batch repository-s3
+  mv ./ik /usr/share/elasticsearch/plugins/.
 
 
 
