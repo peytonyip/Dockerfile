@@ -54,7 +54,7 @@ RUN \
 
 
 #install swoole
-ARG SWOOLE_VERSION=4.8.5
+ARG SWOOLE_VERSION=4.8.8
 
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS && \
     cd /tmp && \
