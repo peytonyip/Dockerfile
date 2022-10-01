@@ -1,6 +1,5 @@
-ARG NGINX_VERSION=1.20.2
-ARG MAXMIND_VERSION=1.6.0
-ARG NGX_BROTLI_COMMIT=9aec15e2aa6feea2113119ba06460af70ab3ea62
+ARG NGINX_VERSION=1.22.0
+ARG NGX_BROTLI_COMMIT=6e975bcb015f62e1f303054897783355e2a877dc
 ARG CONFIG="\
 		--prefix=/etc/nginx \
 		--sbin-path=/usr/sbin/nginx \
@@ -56,22 +55,6 @@ LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 ARG NGINX_VERSION
 ARG NGX_BROTLI_COMMIT
 ARG CONFIG
-ARG MAXMIND_VERSION
-
-RUN set -x \
-  && apk add --no-cache --virtual .build-deps \
-    alpine-sdk \
-    perl \
-  && git clone https://github.com/leev/ngx_http_geoip2_module /usr/src/ngx_http_geoip2_module \
-  && wget https://github.com/maxmind/libmaxminddb/releases/download/${MAXMIND_VERSION}/libmaxminddb-${MAXMIND_VERSION}.tar.gz \
-  && tar xf libmaxminddb-${MAXMIND_VERSION}.tar.gz \
-  && cd libmaxminddb-${MAXMIND_VERSION} \
-  && ./configure \
-  && make \
-  && make check \
-  && make install \
-  && apk del .build-deps \
-  && ldconfig || :
 
 RUN \
 	apk add --no-cache --virtual .build-deps \
@@ -83,7 +66,6 @@ RUN \
 		zlib-dev \
 		linux-headers \
 		curl \
-		gnupg1 \
 		libxslt-dev \
 		gd-dev \
 		geoip-dev \
@@ -112,10 +94,8 @@ RUN \
 	&& curl -fSL https://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -o nginx.tar.gz \
 	&& curl -fSL https://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc  -o nginx.tar.gz.asc \
     && sha512sum nginx.tar.gz nginx.tar.gz.asc \
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& gpg --import /tmp/nginx.pub \
-	&& gpg --batch --verify nginx.tar.gz.asc nginx.tar.gz \
 	&& mkdir -p /usr/src \
+	&& git clone https://github.com/leev/ngx_http_geoip2_module /usr/src/ngx_http_geoip2_module \
 	&& git clone https://github.com/peytonyip/ngx_http_ipdb_module.git /usr/src/ngx_http_ipdb_module \
 	&& tar -zxC /usr/src -f nginx.tar.gz
 
@@ -182,6 +162,6 @@ COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80 443
 
-STOPSIGNAL SIGTERM
+STOPSIGNAL SIGQUIT
 
 CMD ["nginx", "-g", "daemon off;"]
