@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Kibana
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           file: ./kibana/Dockerfile
           context: .
